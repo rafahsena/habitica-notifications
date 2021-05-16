@@ -1,0 +1,1 @@
+export const FIREBASE_CLOUD_URL = "https://fcm.googleapis.com/fcm";

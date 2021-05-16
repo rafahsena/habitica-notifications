@@ -1,9 +1,17 @@
 import React from 'react';
 import logo from '../../assets/img/logo.svg';
-import Greetings from '../../containers/Greetings/Greetings';
 import './Popup.css';
 
+import useFirebase from '../../hooks/useFirebase';
+import useNotifications from '../../hooks/useNotifications';
+
 const Popup = () => {
+  const { token } = useFirebase();
+  const { sendNotification } = useNotifications();
+  const onClickHandler = async () => {
+    sendNotification(token);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -19,6 +27,7 @@ const Popup = () => {
         >
           Learn React!
         </a>
+        <button onClick={onClickHandler}>Clique</button>
       </header>
     </div>
   );
