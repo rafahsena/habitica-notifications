@@ -9,7 +9,7 @@ const Popup = () => {
   const { token } = useFirebase();
   const { sendNotification } = useNotifications();
   const onClickHandler = async () => {
-    sendNotification(token);
+    sendNotification('teste do front', 'Será que funciona?', token);
   };
 
   return (

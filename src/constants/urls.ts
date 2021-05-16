@@ -1,1 +1,1 @@
-export const FIREBASE_CLOUD_URL = "https://fcm.googleapis.com/fcm";
+export const BACKEND_MESSAGING_URL = "http://localhost:3001";
