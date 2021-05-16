@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from '../../assets/img/logo.svg';
+import React, { useState } from 'react';
 import './Popup.css';
 
 import useFirebase from '../../hooks/useFirebase';
 import useNotifications from '../../hooks/useNotifications';
+import useHabitica from '../../hooks/useHabitica';
 
-const Popup = () => {
+import { Task } from '../../interfaces/tasks';
+
+const Home = () => {
   const { token } = useFirebase();
   const { sendNotification } = useNotifications();
+  const { getTasks } = useHabitica();
+
+  const [tasks, setTasks] = useState<Task[]>([]);
+
   const onClickHandler = async () => {
     sendNotification('teste do front', 'Será que funciona?', token);
+    const tasks: Task[] = await getTasks();
+    setTasks(tasks);
   };
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/pages/Popup/Popup.js</code> and save to reload.
-        </p>
+        {tasks.map((task) => (
+          <p key={task.id}>{task.text}</p>
+        ))}
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -33,4 +40,4 @@ const Popup = () => {
   );
 };
 
-export default Popup;
+export default Home;

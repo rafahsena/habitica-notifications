@@ -1,7 +1,4 @@
-import axios from 'axios';
-import { BACKEND_MESSAGING_URL } from '../constants/urls';
-
-const http = axios.create({ baseURL: BACKEND_MESSAGING_URL });
+import { http } from "../lib/http";
 
 function addMinutes(date: Date, minutes: number) {
   return new Date(date.getTime() + minutes * 60000);
