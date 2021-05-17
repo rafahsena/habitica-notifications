@@ -7,6 +7,8 @@ import useHabitica from '../../hooks/useHabitica';
 
 import { Task } from '../../interfaces/tasks';
 import TaskItem from '../../components/TaskItem';
+import { User } from '../../interfaces/user';
+import { getUserInfo } from '../../lib/chrome.storage';
 
 const Home = () => {
   const { token } = useFirebase();
@@ -14,10 +16,18 @@ const Home = () => {
   const { getTasks, isPending } = useHabitica();
 
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [userInfo, setUserInfo] = useState<User>();
 
   useEffect(() => {
-    getTasks().then((tasks) => setTasks(tasks));
+    getUserInfo((user: User) => setUserInfo(user));
   }, []);
+
+  useEffect(() => {
+    if (userInfo?.apiKey && userInfo.apiUser)
+      getTasks(userInfo.apiKey, userInfo.apiUser).then((tasks) =>
+        setTasks(tasks)
+      );
+  }, [userInfo]);
 
   return (
     <Container>
